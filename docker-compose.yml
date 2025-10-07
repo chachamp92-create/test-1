@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  smart-police-ann:
+    image: nginx:alpine
+    container_name: smart-police-announcement
+    ports:
+      - "8041:80"
+    restart: unless-stopped
+    volumes:
+      # Mount for easy updates without rebuilding
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+      - ./ann.png:/usr/share/nginx/html/ann.png:ro
+    networks:
+      - smart-police-ann-network
+
+networks:
+  smart-police-ann-network:
+    driver: bridge
